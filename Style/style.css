@@ -1,0 +1,98 @@
+.main {
+  position: relative;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
+  font-family: 'Allerta Stencil', sans-serif;
+  font-weight: bold;
+}
+.body {
+  background-color: #465b7d;
+  border: double;
+  border-width: medium;
+  border-color: #d8d8d8;
+}
+.smash_text {
+  color: #d8d8d8
+}
+.title {
+  color: white;
+  text-align: center;
+  margin:auto;
+  font-size: 64px;
+  margin-top: 2%;
+  text-shadow: white;
+}
+.subtitle {
+  font-size: 24px;
+  text-align: center;
+  color: white;
+  font-weight: 100;
+  padding-bottom: 1%;
+  border-bottom: double;
+  border-color: white;
+  width:50%;
+  margin:auto;
+}
+.selection {
+  margin-top: 2%;
+  text-align: center;
+}
+.select_text {
+  text-align: center;
+  font-size: 32px;
+}
+.selection_table {
+  border: double;
+  border-width: medium;
+  border-color: #d8d8d8;
+}
+.selection_table td {
+  color: white;
+  text-align: center;
+  border: 1px solid black;
+  width: 110px;
+  height: 50px;
+}
+table.selection_table td:hover {
+  background-color: #6D6D6D;
+  cursor: pointer;
+}
+.selected {
+}
+.select_characters {
+  display: inline-block;
+  padding-right: 1%;
+}
+.select_moves {
+  display: inline-block;
+  padding-left: 1%;
+}
+.scene {
+  display: block;
+  border: 1px solid white;
+  margin: 2% 2% 4% 4%;
+  text-align: center;
+  color: white;
+}
+.frame {
+  margin: auto;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  width: 25%;
+}
+.frame_list {
+  list-style-type: none;
+}
+.frame_source {
+  color: hotpink;
+}
+.frame_name {
+  text-align: center;
+  font: 36px;
+  font-weight: bold;
+}
