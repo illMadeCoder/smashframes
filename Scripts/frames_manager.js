@@ -1,118 +1,90 @@
 var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1rdz4i8qbE9mi44lkW2_ByQZODiwU4UUF--ZizCFdIHo/pubhtml';
-var headers = [];
-var characters = {};
-var moves = {};
-var frame_view_container = $(".frame_data");
-var selected_color = "#4286f4"
+var character_selection = null
+var move_selection = null
 var scene = null
+var data_obj = {}
+var char_list = []
+var move_list = []
 
-function init() {
-  Tabletop.init( { key: publicSpreadsheetUrl,
-                   callback: process,
-                   simpleSheet: true } )
+function new_frame_element(_element,_class="") {
+  return $('<li style="text-align:center" class="list-group-item ' +_class + '"></li>').append(_element)
 }
-
-function new_move(_move,_move_name) {
-  let move_data = _move.split("\n")
-  let move = $("<ul class=\"frame_list\">" + _move_name + "</ul>")
-  for (let i = 0; i < move_data.length; i++) {
-    if (i == 0) {
-      move.append($("<li><img src=\"" + move_data[i] + "\" title=\"source: imgur.com\" /></a></li>"))
-    } else {
-      move.append($("<li>" + move_data[i] + "</li>"))
-    }
+function parse_move(_move_name,_move) {
+  let move = $('<ul class="list-group"><h3 class="list-group-item-heading">' + _move_name + '</h3></ul>')
+  move.append($('<li style="text-align:center" class="list-group-item"><img src=' + _move[0] + ' class="img-thumbnail" alt="Responsive image"></img></li>'))
+  for (let i = 1; i < _move.length; i++) {
+    move.append($('<li class="list-group-item">' + _move[i] + '</li>'))
   }
   return move
 }
-
-function new_frame(_character_name,_moves) {
-  var frame_view = $("<td class = \"frame\"><ul class = \"frame_list\"><li class=\"frame_name\">" + _character_name + "</li>" + "<li><a class = \"frame_source\" href=\"" + _moves.Source + "\">DATA SOURCE</a></li>" + "</ul></td>")
-  for (var move in _moves) {
-    if (moves[move] && moves[move].selected == true) {
-      frame_view.append(new_move(_moves[move], move))
+function new_frame(_char) {
+  let frame = $('<ul class="list-group col-md-4"></ul>')
+  frame.append(new_frame_element($('<h4>' + _char + '</h4>')))
+  frame.append(new_frame_element($('<a href=' +data_obj[_char].source + '>DATA SOURCE</a>')))
+  move_selection.children('button').each(function () {
+    if ($(this).hasClass('active')) {
+      frame.append(new_frame_element(parse_move($(this).text(),data_obj[_char].moves[$(this).text()])))
     }
-  }
-  return frame_view
+  })
+  return frame
 }
-
-function new_scene() {
+function update_scene() {
   scene.empty()
-  for (var char in characters) {
-    if (characters[char].selected == true) {
-      scene.append(new_frame(char,characters[char].moves))
+  character_selection.children('button').each(function () {
+    if ($(this).hasClass("active")) {
+      scene.append(new_frame($(this).text()))
     }
-  }
-
+  })
 }
 
-function selection_table(_obj,_row_size,_td_class) {
-  let html_string = ""
-  let i = 0
-  for (var k in _obj) {
-    let html_start = ""
-    let html_end = ""
-    if (i % _row_size == 0) {
-      html_start += "<tr>"
-    }
-    if (i % _row_size == _row_size-1) {
-      html_end += "</tr>"
-    }
-    html_start += "<td class=\"" + _td_class + "\">"
-    html_end = "</td>" + html_end
-    html_string += html_start + k + html_end
-    i++;
-  }
-  return html_string
+function init(_character_selection,_move_selection) {
+  Tabletop.init( { key: publicSpreadsheetUrl,
+                   callback: process_data,
+                   simpleSheet: true } )
 }
-
-function process(_data, _tabletop) {
-  headers = _tabletop.models.Raw.columnNames
+function process_moves(_moves) {
+  for (var move in _moves) {
+    _moves[move] = _moves[move].replace(/(^[ \t]*\n)/gm, "").trim().split('\n')
+  }
+  return _moves
+}
+function process_data(_data,_tabletop) {
+  //Import melee spreadsheet data, and make jquery buttons
   for (let i = 0; i < _data.length; i++) {
-    characters[_data[i].Character] = {}
-    characters[_data[i].Character].name = _data[i].Character
-    characters[_data[i].Character].moves = _data[i]
-    characters[_data[i].Character].selected = false
-  }
-  for (let i = 2; i < headers.length; i++) {
-    moves[headers[i]] = {}
-    moves[headers[i]].name = headers[i]
-    moves[headers[i]].selected = false;
-  }
-  let select_characters = $(".select_characters table");
-  select_characters.append($(selection_table(characters,5,"character")))
-  let select_moves = $(".select_moves table")
-  select_moves.append($(selection_table(moves,6,"move")))
-  $("." + "character").each(function () {
-    $(this).on("click", function () {
-      if (characters[$(this).text()].selected != true) {
-        characters[$(this).text()].selected = true
-        $(this).addClass("selected")
-        $(this).css("background-color",selected_color)
-      } else {
-        characters[$(this).text()].selected = false
-        $(this).removeClass("selected")
-        $(this).css("background-color","")
-      }
-      new_scene()
+    //setup
+    let char = _data[i].Character
+    char_list.push(char)
+    data_obj[char] = {source:_data[i].Source}
+    delete _data[i].Character
+    delete _data[i].Source
+    //process move
+    data_obj[char].moves = process_moves(_data[i])
+    //buttons
+    //chars
+    let char_button = $('<button type="button" class="btn-lg btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">' + char + '</button>&nbsp;')
+    char_button.on('click', function () {
+      char_button.button('toggle')
+      update_scene("char",char_button.button().hasClass('active'),char)
     })
-  })
-  $("." + "move").each(function () {
-    $(this).on("click", function () {
-      if (moves[$(this).text()].selected != true) {
-        moves[$(this).text()].selected = true
-        $(this).addClass("selected")
-        $(this).css("background-color",selected_color)
-      } else {
-        moves[$(this).text()].selected = false
-        $(this).removeClass("selected")
-        $(this).css("background-color","")
+    character_selection.append(char_button)
+    //moves, only need to do first time in loop
+    if (i == 0) {
+      for (var move in data_obj[char].moves) {
+        move_list.push(move)
+        let move_button = $('<button type="button" class="btn-lg btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">' + move + '</button>&nbsp;')
+        move_button.on('click', function () {
+          move_button.button('toggle')
+          update_scene("move",move_button.button().hasClass('active'),move)
+        })
+        move_selection.append(move_button)
       }
-      new_scene()
-    })
-  })
+    }
+  }
 }
-
 $(document).ready(function () {
-  init()
-  scene = $(".scene")
+  character_selection = $("#character_selection")
+  move_selection = $("#move_selection")
+  scene = $("#scene")
+  init(character_selection,move_selection)
+
 });

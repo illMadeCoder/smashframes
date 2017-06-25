@@ -10,6 +10,12 @@
   font-family: 'Allerta Stencil', sans-serif;
   font-weight: bold;
 }
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Allerta Stencil', sans-serif;
+}
+p, div {
+    font-family: 'Allerta Stencil', sans-serif;
+}
 .body {
   background-color: #465b7d;
   border: double;
@@ -22,30 +28,30 @@
 .title {
   color: white;
   text-align: center;
-  margin:auto;
-  font-size: 64px;
+  font-size: 600%;
   margin-top: 2%;
-  text-shadow: white;
 }
 .subtitle {
-  font-size: 24px;
-  text-align: center;
   color: white;
-  font-weight: 100;
-  padding-bottom: 1%;
+  text-align: center;
+  margin-top: -1%;
   border-bottom: double;
   border-color: white;
-  width:50%;
-  margin:auto;
-}
-.selection {
-  margin-top: 2%;
-  text-align: center;
+  padding-bottom: 1%;
+  font-size: 200%;
 }
 .select_text {
   text-align: center;
   font-size: 32px;
 }
+#selection {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  padding-bottom: 2%;
+  text-align: center;
+  border-bottom: white solid 1px;
+}
+/*
 .selection_table {
   border: double;
   border-width: medium;
@@ -96,3 +102,4 @@ table.selection_table td:hover {
   font: 36px;
   font-weight: bold;
 }
+*/
