@@ -11,7 +11,8 @@ function new_frame_element(_element,_class="") {
 }
 function parse_move(_move_name,_move) {
   let move = $('<ul class="list-group"><h3 class="list-group-item-heading">' + _move_name + '</h3></ul>')
-  move.append($('<li style="text-align:center" class="list-group-item"><img src=' + _move[0] + ' class="img-thumbnail" alt="Responsive image"></img></li>'))
+  let move_gif = $('<img src="' + _move[0] + '" class="img-thumbnail" alt="Responsive image"></img>')
+  move.append($('<li style="text-align:center" class="list-group-item"></li>').append(move_gif))
   for (let i = 1; i < _move.length; i++) {
     move.append($('<li class="list-group-item">' + _move[i] + '</li>'))
   }
@@ -19,7 +20,7 @@ function parse_move(_move_name,_move) {
 }
 function new_frame(_char) {
   let frame = $('<ul class="list-group col-md-4"></ul>')
-  frame.append(new_frame_element($('<h4>' + _char + '</h4>')))
+  frame.append(new_frame_element($('<h3 style="font-weight:bold">' + _char + '</h3>')))
   frame.append(new_frame_element($('<a href=' +data_obj[_char].source + '>DATA SOURCE</a>')))
   move_selection.children('button').each(function () {
     if ($(this).hasClass('active')) {
@@ -30,6 +31,7 @@ function new_frame(_char) {
 }
 function update_scene() {
   scene.empty()
+  gifs = []
   character_selection.children('button').each(function () {
     if ($(this).hasClass("active")) {
       scene.append(new_frame($(this).text()))
@@ -71,7 +73,7 @@ function process_data(_data,_tabletop) {
     if (i == 0) {
       for (var move in data_obj[char].moves) {
         move_list.push(move)
-        let move_button = $('<button type="button" class="btn-lg btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">' + move + '</button>&nbsp;')
+        let move_button = $('<button type="button" class="btn-lg btn-warning" data-toggle="button" aria-pressed="false" autocomplete="off">' + move + '</button>&nbsp;')
         move_button.on('click', function () {
           move_button.button('toggle')
           update_scene("move",move_button.button().hasClass('active'),move)

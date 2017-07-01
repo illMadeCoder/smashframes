@@ -1,0 +1,74 @@
+<html class="main">
+  <head>
+    <link rel="icon" href="/images/smashframes_icon.jpg">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- GENERAL SEARCH INFO -->
+    <meta name="author" content="Jesse Bergerstock"/>
+    <meta name="copyright" content="Jesse Bergerstock"/>
+    <meta name="description" content="A Super Smash Brothers Melee Frame Data Archive">
+    <meta name="keywords" content="Super Smash Brothers Melee Frame Data Archive">
+    <link rel="canonical" href="https://http://smashframes.com/" />
+
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="A Super Smash Brothers Melee Frame Data Archive"/>
+    <meta name="twitter:site" content="@illmadecoder"/>
+    <meta name="twitter:creator" content="Jesse Bergerstock"/>
+    <meta name="twitter:url" content="https://http://smashframes.com/"/>
+    <meta name="twitter:title" content="Jesse Bergerstock's Resume"/>
+    <meta name="twitter:description" content="A resume website."/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Allerta+Stencil" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link rel="stylesheet" href="/Style/style.css">
+    
+    <script src="Scripts/frames_manager.js"></script>
+    
+    <title>SmashFrames</title>
+  </head>
+  <body class="body" $font-family-base="'Allerta Stencil', sans-serif">
+    <div class="container">
+      <h1 class="title">Smash Frames</h1>
+      <h3 class="subtitle">A Melee Frame Data Archive</h2>
+    </div>
+    <div class="container" id=selection>
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="select_text smash_text">
+            Select From
+            <br \>
+            Characters
+          </h3>
+          <div class="btn-group btn-group-lg" data-toggle="button" id="character_selection" role="group">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3 class="select_text smash_text">
+            Select From
+            <br \>
+            Move List
+          </h3>
+          <div class="btn_group btn_group-lg" data-toggle="button" id="move_selection" role="group">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row" id="scene">
+      </div>
+    </div>
+  </body>
+</html>
