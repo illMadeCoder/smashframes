@@ -13,7 +13,7 @@ Tabletop.init( { key: publicSpreadsheetUrl,
                     data = _data;
                   },
                   simpleSheet: true } )
-//        
+//
 app.use(express.static(__dirname));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs')
@@ -21,14 +21,14 @@ app.set('view engine', 'ejs')
 app.get("/", function(req, res) {
   res.redirect("/frame_data");
 })
-app.get("/frame_data", function(req, res)) {
+app.get("/frame_data", function(req, res) {
   res.render("index.ejs");
 }
 
 //API
 //Get Frame Data as JSON
 app.get("/api/frame_data", function(req, res)) {
-  
+
 }
 
 app.listen(8080);
