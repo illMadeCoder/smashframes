@@ -23,12 +23,12 @@ app.get("/", function(req, res) {
 })
 app.get("/frame_data", function(req, res) {
   res.render("index.ejs");
-}
+})
 
 //API
 //Get Frame Data as JSON
-app.get("/api/frame_data", function(req, res)) {
+app.get("/api/frame_data", function(req, res) {
 
-}
+})
 
 app.listen(8080);
