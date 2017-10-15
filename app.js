@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient, assert = require('assert');
 var mongo_url = 'mongodb://localhost:27017/smashframes'
 //db for now
 var Tabletop = require("tabletop");
-var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1rdz4i8qbE9mi44lkW2_ByQZODiwU4UUF--ZizCFdIHo/pubhtml';
+var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ094scc9HTNxW0RfQF2a2ILzYnuq_3lcaJy1csRCY8hxkNu69D1jW502YJhhLMCki56wh7M7ab5qv_/pubhtml';
 var data = []
 
 Tabletop.init( { key: publicSpreadsheetUrl,
